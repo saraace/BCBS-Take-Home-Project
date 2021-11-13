@@ -25,9 +25,11 @@ app.post("/upload", async (req, res) => {
 			caption: req.body.caption
 		});
 
-		res.status(200).send({
-			message: "Image uploaded successfully: " + req.file.originalname
-		});
+		setTimeout(() => {
+			res.status(200).send({
+				message: "Image uploaded successfully: " + req.file.originalname
+			});
+		}, 3000);
 	} catch (e) {
 		console.log(e);
 
@@ -44,7 +46,9 @@ app.post("/upload", async (req, res) => {
 });
 
 app.get("/images", (req, res) => {
-	res.status(200).send(images.data);
+	setTimeout(() => {
+		res.status(200).send(images.data);
+	}, 300);
 });
 
 app.listen(port, () => {

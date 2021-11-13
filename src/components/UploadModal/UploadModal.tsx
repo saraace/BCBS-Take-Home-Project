@@ -1,6 +1,7 @@
 import { ChangeEvent, useState } from "react";
 import {
 	Button,
+	CircularProgress,
 	Dialog,
 	DialogActions,
 	DialogContent,
@@ -9,10 +10,11 @@ import {
 	TextField
 } from "@mui/material";
 import { Box } from "@mui/system";
-import { FormField } from "./UploadModal.styles";
-import Images from "../../services/api/images";
+import { green } from "@mui/material/colors";
 import { useAppDispatch } from "../../services/redux/hooks";
 import { setImages } from "../../services/redux/gallery";
+import Images from "../../services/api/images";
+import { FormField } from "./UploadModal.styles";
 
 interface UploadModalProps {
 	open: boolean;
@@ -23,6 +25,9 @@ const UploadModal: React.FC<UploadModalProps> = ({ open, handleClose }) => {
 	const dispatch = useAppDispatch();
 	const [image, setImage] = useState<File>();
 	const [caption, setCaption] = useState<string>("");
+	const [submitted, setSubmitted] = useState<boolean>(false);
+	const [uploading, setUploading] = useState<boolean>(false);
+	const [success, setSuccess] = useState<boolean>(false);
 
 	const handleImageSelect = (e: ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files && e.target.files.length > 0) {
@@ -33,14 +38,27 @@ const UploadModal: React.FC<UploadModalProps> = ({ open, handleClose }) => {
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => setCaption(e.target.value);
 
 	const upload = () => {
+		setSubmitted(true);
 		if (image && caption !== "") {
+			setUploading(true);
 			Images.upload(image, caption).then(() => {
+				setSuccess(true);
+				setUploading(false);
 				Images.fetch().then((res) => {
 					dispatch(setImages({ images: res }));
 					handleClose();
 				});
 			});
 		}
+	};
+
+	const buttonSx = {
+		...(success && {
+			bgcolor: green[500],
+			"&:hover": {
+				bgcolor: green[700]
+			}
+		})
 	};
 
 	return (
@@ -54,13 +72,15 @@ const UploadModal: React.FC<UploadModalProps> = ({ open, handleClose }) => {
 							variant="standard"
 							label="Image"
 							value={image ? image.name : ""}
+							error={submitted && !image}
+							helperText={submitted && !image ? "Please select an image." : ""}
 							fullWidth
 							disabled
 						/>
 					</Box>
 					<Box>
 						<Button variant="contained" component="label">
-							Select File
+							Select Image
 							<input type="file" hidden onChange={handleImageSelect} />
 						</Button>
 					</Box>
@@ -68,6 +88,8 @@ const UploadModal: React.FC<UploadModalProps> = ({ open, handleClose }) => {
 				<FormField>
 					<TextField
 						onChange={handleChange}
+						error={submitted && caption === ""}
+						helperText={submitted && caption === "" ? "Please include a caption." : ""}
 						variant="standard"
 						id="caption"
 						label="Caption"
@@ -77,10 +99,27 @@ const UploadModal: React.FC<UploadModalProps> = ({ open, handleClose }) => {
 				</FormField>
 			</DialogContent>
 			<DialogActions>
-				<Button onClick={handleClose}>Cancel</Button>
-				<Button variant="contained" onClick={upload}>
-					Upload
+				<Button onClick={handleClose} disabled={uploading}>
+					Cancel
 				</Button>
+				<Box sx={{ position: "relative" }}>
+					<Button sx={buttonSx} variant="contained" onClick={upload} disabled={uploading}>
+						Upload
+					</Button>
+					{uploading && (
+						<CircularProgress
+							size={24}
+							sx={{
+								color: green[500],
+								position: "absolute",
+								top: "50%",
+								left: "50%",
+								marginTop: "-12px",
+								marginLeft: "-12px"
+							}}
+						/>
+					)}
+				</Box>
 			</DialogActions>
 		</Dialog>
 	);
