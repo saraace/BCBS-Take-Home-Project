@@ -20,7 +20,7 @@ const ImageGrid = () => {
 			<Grid container spacing={2}>
 				{images.map((image, i) => (
 					<Grid key={i} item xs={12} sm={6} md={4} lg={3}>
-						<ImageCard image={image.src} />
+						<ImageCard {...image} />
 					</Grid>
 				))}
 			</Grid>
