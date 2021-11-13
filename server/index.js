@@ -19,8 +19,6 @@ app.post("/upload", async (req, res) => {
 			return res.status(400).send({ message: "Please select an image." });
 		}
 
-		console.log(req.body.caption);
-
 		images.insert({
 			name: req.file.originalname,
 			src: `${publicPath}/${req.file.originalname}`,
