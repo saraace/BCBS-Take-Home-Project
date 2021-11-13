@@ -5,8 +5,9 @@
 /.pnp
 .pnp.js
 
-# testing
-/coverage
+# uploaded images
+/public/images/*.jpg
+/public/images/*.png
 
 # production
 /build
