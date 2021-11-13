@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { Grid } from "@mui/material";
+import Image from "../../interfaces/Image.interface";
 import Images from "../../services/api/images";
 import ImageCard from "./ImageCard/ImageCard";
 import { ImageContainer } from "./ImageGrid.styles";
 
 const ImageGrid = () => {
-	const [images, setImages] = useState<{ name: string; src: string }[]>([]);
+	const [images, setImages] = useState<Image[]>([]);
 
 	useEffect(() => {
 		Images.fetch().then((res) => {
