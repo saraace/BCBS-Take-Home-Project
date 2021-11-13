@@ -1,70 +1,36 @@
-# BCBS-Take-Home-Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# BCBS &mdash; Take Home Project
+![BCBS Assessment](https://wordpress.saraace.com/wp-content/uploads/2021/11/bcbs-assessment.png)
+## 🔍 Project Overview
 
-## Available Scripts
+The purpose of this assessment was to create an image upload app. Displayed at the top right of the page is an upload button which will open a modal used for uploading an image and related caption. Below the top bar, an grid of images is shown containing seven images that have been included in the project along with any images you have uploaded on your own. 
 
-In the project directory, you can run:
+For the backend I created a simple express server with LokiJS integrated. LokiJS is an in-memory object oriented databse written in Javascript. In this scenario I am creating a LokiJS collection when the server starts called images. When using the POST endpoint `/upload`, a new entry containing the image path and caption is inserted into the collection. Additionally, the same image collection is returned via the GET endpoint `/images`.
 
-### `yarn start`
+## 🤔 Future Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Once I started this project I began to think of a lot of fun features that I could add to it given more time. Some of those features include: 
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+ - Custom Material UI theme
+ - On click action of image card. This action could open a larger version of the image along with additional information specified by the user. 
+ - Integration of [Framer Motion](https://www.framer.com/motion/) to give the application some animation such as fading in image cards.
+ - Download button for each card.
 
-### `yarn test`
+## 🛠 Installation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Please run `yarn install` then `yarn start`.
 
-### `yarn build`
+## 💻 Technologies Used
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+ - Typescript
+ - React
+ - Redux
+ - [LokiJS](https://github.com/techfort/LokiJS)
+ - Material UI 
+ - Emotion Styled components
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 👩🏻‍💻 Note from the Author
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Hi! I’m Sara Acevedo. I’m a software engineer, and I love working on visually appealing Front End Projects. I found this assessment enjoyable because it allowed me to be creative while showing off my skills. As a lover of clean code, I knew this would be the perfect opportunity to utilize Typescript to keep my components clear and concise. Additionally, I set up a Redux store to manage the images that have been uploaded to the app. Redux allowed me to dispatch an action when uploading an new image so that  I could refresh the data displayed in the image grid.
 
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Please let me know of any feedback. I look forward to the next steps! *&mdash; Sara*
