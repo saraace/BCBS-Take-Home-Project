@@ -3,9 +3,12 @@
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
+		"@types/express": "^4.17.13",
 		"@types/node": "^12.0.0",
 		"@types/react": "^17.0.0",
 		"@types/react-dom": "^17.0.0",
+		"concurrently": "^6.4.0",
+		"express": "^4.17.1",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2",
 		"react-scripts": "4.0.3",
@@ -13,10 +16,11 @@
 		"web-vitals": "^1.0.1"
 	},
 	"scripts": {
-		"start": "react-scripts start",
+		"start": "concurrently \"react-scripts start\" \"node server/index.ts\"",
 		"build": "react-scripts build",
 		"eject": "react-scripts eject"
 	},
+	"proxy": "http://localhost:3001",
 	"eslintConfig": {
 		"extends": [
 			"react-app"
