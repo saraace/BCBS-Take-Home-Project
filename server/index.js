@@ -4,7 +4,8 @@ const uploadFile = require("./upload");
 
 const app = express();
 const port = 3001;
-const uploadFolder = __dirname + "/../public/images";
+const publicPath = "uploads/";
+const uploadFolder = `${__dirname}/../public/${publicPath}`;
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -42,9 +43,12 @@ app.get("/images", (req, res) => {
 			});
 		}
 
-		let images = files.map((file) => ({
-			name: file
-		}));
+		let images = files
+			.filter((file) => file.includes(".jpg") || file.includes(".png"))
+			.map((file) => ({
+				name: file,
+				src: `/${publicPath}${file}`
+			}));
 
 		res.status(200).send(images);
 	});
