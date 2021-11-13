@@ -1,11 +1,13 @@
 const express = require("express");
-const fs = require("fs");
+const loki = require("lokijs");
 const uploadFile = require("./upload");
 
 const app = express();
+const db = new loki("project.db");
+const images = db.addCollection("images");
+
 const port = 3001;
-const publicPath = "uploads/";
-const uploadFolder = `${__dirname}/../public/${publicPath}`;
+const publicPath = "/uploads";
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -16,6 +18,14 @@ app.post("/upload", async (req, res) => {
 		if (req.file === undefined) {
 			return res.status(400).send({ message: "Please select an image." });
 		}
+
+		console.log(req.body.caption);
+
+		images.insert({
+			name: req.file.originalname,
+			src: `${publicPath}/${req.file.originalname}`,
+			caption: req.body.caption
+		});
 
 		res.status(200).send({
 			message: "Image uploaded successfully: " + req.file.originalname
@@ -36,22 +46,7 @@ app.post("/upload", async (req, res) => {
 });
 
 app.get("/images", (req, res) => {
-	fs.readdir(uploadFolder, function (err, files) {
-		if (err) {
-			res.status(500).send({
-				message: "Unable to scan files!"
-			});
-		}
-
-		let images = files
-			.filter((file) => file.includes(".jpg") || file.includes(".png"))
-			.map((file) => ({
-				name: file,
-				src: `/${publicPath}${file}`
-			}));
-
-		res.status(200).send(images);
-	});
+	res.status(200).send(images.data);
 });
 
 app.listen(port, () => {
