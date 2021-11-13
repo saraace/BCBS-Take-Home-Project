@@ -9,8 +9,18 @@ const images = db.addCollection("images");
 const port = 3001;
 const publicPath = "/uploads";
 
+// adding demo images to collection
+images.insert({ src: `${publicPath}/coffee-01.jpg`, caption: "Coffee Image 01" });
+images.insert({ src: `${publicPath}/coffee-02.jpg`, caption: "Coffee Image 02" });
+images.insert({ src: `${publicPath}/coffee-03.jpg`, caption: "Coffee Image 03" });
+images.insert({ src: `${publicPath}/coffee-04.jpg`, caption: "Coffee Image 04" });
+images.insert({ src: `${publicPath}/coffee-05.jpg`, caption: "Coffee Image 05" });
+images.insert({ src: `${publicPath}/coffee-06.jpg`, caption: "Coffee Image 06" });
+images.insert({ src: `${publicPath}/coffee-07.jpg`, caption: "Coffee Image 07" });
+
 app.use(express.urlencoded({ extended: true }));
 
+// POST endpoint for uploading images
 app.post("/upload", async (req, res) => {
 	try {
 		await uploadFile(req, res);
@@ -45,6 +55,7 @@ app.post("/upload", async (req, res) => {
 	}
 });
 
+// GET endpoint for fetching images
 app.get("/images", (req, res) => {
 	setTimeout(() => {
 		res.status(200).send(images.data);

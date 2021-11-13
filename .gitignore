@@ -9,6 +9,14 @@
 /public/uploads/*.jpg
 /public/uploads/*.png
 
+!/public/uploads/coffee-01.jpg
+!/public/uploads/coffee-02.jpg
+!/public/uploads/coffee-03.jpg
+!/public/uploads/coffee-04.jpg
+!/public/uploads/coffee-05.jpg
+!/public/uploads/coffee-06.jpg
+!/public/uploads/coffee-07.jpg
+
 # production
 /build
 
