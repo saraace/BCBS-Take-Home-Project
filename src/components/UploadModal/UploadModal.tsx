@@ -2,6 +2,7 @@ import { ChangeEvent, useState } from "react";
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import { FormField } from "./UploadModal.styles";
+import Images from "../../services/api/images";
 
 interface UploadModalProps {
 	open: boolean;
@@ -14,6 +15,12 @@ const UploadModal: React.FC<UploadModalProps> = ({ open, handleClose }) => {
 	const onImageSelect = (e: ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files && e.target.files.length > 0) {
 			setImage(e.target.files[0]);
+		}
+	};
+
+	const upload = () => {
+		if (image) {
+			Images.upload(image);
 		}
 	};
 
@@ -39,7 +46,7 @@ const UploadModal: React.FC<UploadModalProps> = ({ open, handleClose }) => {
 			</DialogContent>
 			<DialogActions>
 				<Button onClick={handleClose}>Cancel</Button>
-				<Button variant="contained" onClick={handleClose}>
+				<Button variant="contained" onClick={upload}>
 					Upload
 				</Button>
 			</DialogActions>

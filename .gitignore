@@ -6,8 +6,8 @@
 .pnp.js
 
 # uploaded images
-/public/images/*.jpg
-/public/images/*.png
+/public/uploads/*.jpg
+/public/uploads/*.png
 
 # production
 /build
