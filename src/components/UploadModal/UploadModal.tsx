@@ -11,6 +11,8 @@ import {
 import { Box } from "@mui/system";
 import { FormField } from "./UploadModal.styles";
 import Images from "../../services/api/images";
+import { useAppDispatch } from "../../services/redux/hooks";
+import { setImages } from "../../services/redux/gallery";
 
 interface UploadModalProps {
 	open: boolean;
@@ -18,6 +20,7 @@ interface UploadModalProps {
 }
 
 const UploadModal: React.FC<UploadModalProps> = ({ open, handleClose }) => {
+	const dispatch = useAppDispatch();
 	const [image, setImage] = useState<File>();
 	const [caption, setCaption] = useState<string>("");
 
@@ -31,7 +34,12 @@ const UploadModal: React.FC<UploadModalProps> = ({ open, handleClose }) => {
 
 	const upload = () => {
 		if (image && caption !== "") {
-			Images.upload(image, caption);
+			Images.upload(image, caption).then(() => {
+				Images.fetch().then((res) => {
+					dispatch(setImages({ images: res }));
+					handleClose();
+				});
+			});
 		}
 	};
 
